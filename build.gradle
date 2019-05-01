@@ -1,0 +1,58 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+	id("org.asciidoctor.convert") version "1.5.9.2"
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'net.suteren.ataccama'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext {
+	snippetsDir = file('build/generated-snippets')
+	swaggerVersion = '2.9.2'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	asciidoctor "org.springframework.restdocs:spring-restdocs-asciidoctor"
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "io.springfox:springfox-swagger2:${swaggerVersion}"
+	implementation "io.springfox:springfox-swagger-ui:${swaggerVersion}"
+	implementation "io.springfox:springfox-bean-validators:${swaggerVersion}"
+	implementation "io.springfox:springfox-data-rest:${swaggerVersion}"
+	implementation 'org.springframework.boot:spring-boot-test-autoconfigure'
+	compileOnly 'org.asciidoctor:asciidoctorj:1.5.2'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'org.hsqldb:hsqldb'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	sourceDir = file('src/main/resources')
+	attributes = [snippets:  snippetsDir]
+	outputDir = file('build/docs')
+	dependsOn test
+}

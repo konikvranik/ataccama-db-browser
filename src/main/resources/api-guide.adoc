@@ -1,0 +1,34 @@
+= Database Browser
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[request-index]]
+== Index
+
+operation::index[snippets='response-fields,http-response,links']
+
+
+[[request-connection-records]]
+== Connection records
+
+=== Create
+
+operation::connectionRecordsCreate[snippets='request-fields,curl-request,http-request,response-fields,http-response']
+
+=== Update
+
+operation::connectionRecordsUpdate[snippets='request-fields,curl-request,http-request,response-fields,http-response']
+
+=== Read
+
+operation::connectionRecordsRead[snippets='request-fields,curl-request,http-request,response-fields,http-response']
+
+=== Read
+
+operation::connectionRecordsDelete[snippets='request-fields,curl-request,http-request,response-fields,http-response']
